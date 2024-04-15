@@ -1,0 +1,342 @@
+\documentclass[11pt]{article}
+\newcommand{\yourname}{Avinash R. Arutla}
+\def\comments{0}
+%format and packages
+%\usepackage{algorithm, algorithmic}
+\usepackage{algpseudocode}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{verbatim}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{microtype}
+\usepackage{kpfonts}
+\usepackage{palatino}
+\usepackage{tabto}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\DeclareMathAlphabet{\mathtt}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathtt}{bold}{OT1}{cmtt}{bx}{n}
+\DeclareMathAlphabet{\mathsf}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathsf}{bold}{OT1}{cmss}{bx}{n}
+\renewcommand*\ttdefault{cmtt}
+\renewcommand*\sfdefault{cmss}
+\renewcommand{\baselinestretch}{1.06}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{DarkGreen}{rgb}{0.15,0.5,0.15}
+\definecolor{DarkRed}{rgb}{0.6,0.2,0.2}
+\definecolor{DarkBlue}{rgb}{0.2,0.2,0.6}
+\definecolor{DarkPurple}{rgb}{0.4,0.2,0.4}
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+    linktocpage=true,
+    colorlinks=true, % false: boxed links; true: colored links
+    linkcolor=DarkBlue, % color of internal links
+    citecolor=DarkBlue, % color of links to bibliography
+    urlcolor=DarkBlue, % color of external links
+}
+\usepackage[boxruled,vlined,nofillcomment]{algorithm2e}
+\SetKwProg{Fn}{Function}{\string:}{}
+\SetKwFor{While}{While}{}{}
+\SetKwFor{For}{For}{}{}
+\SetKwIF{If}{ElseIf}{Else}{If}{:}{ElseIf}{Else}{:}
+\SetKw{Return}{Return}
+%enclosure macros
+\newcommand{\paren}[1]{\ensuremath{\left( {#1} \right)}}
+\newcommand{\bracket}[1]{\ensuremath{\left\{ {#1} \right\}}}
+\renewcommand{\sb}[1]{\ensuremath{\left[ {#1} \right\]}}
+\newcommand{\ab}[1]{\ensuremath{\left\langle {#1} \right\rangle}}
+%probability macros
+\newcommand{\ex}[2]{{\ifx&#1& \mathbb{E} \else \underset{#1}{\mathbb{E}} \fi \
+left[#2\right]}}
+\newcommand{\pr}[2]{{\ifx&#1& \mathbb{P} \else \underset{#1}{\mathbb{P}} \fi \
+left[#2\right]}}
+\newcommand{\var}[2]{{\ifx&#1& \mathrm{Var} \else \underset{#1}{\mathrm{Var}} \fi \
+left[#2\right]}}
+%useful CS macros
+\newcommand{\poly}{\mathrm{poly}}
+\newcommand{\polylog}{\mathrm{polylog}}
+\newcommand{\zo}{\{0,1\}}
+\newcommand{\pmo}{\{\pm1\}}
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\card}[1]{\left| #1 \right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\negl}{\mathrm{negl}}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\eqand}{\qquad \textrm{and} \qquad}
+\newcommand{\ind}[1]{\mathbb{I}\{#1\}}
+\newcommand{\sslash}{\ensuremath{\mathbin{/\mkern-3mu/}}}
+%mathbb
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+%mathcal
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+%theorem macros
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newcommand{\instructor}{Iraklis Tsekourakis}
+\newcommand{\hwnum}{6}
+
+\newcommand{\mymath}[1]{%
+\begin{equation}
+#1
+\end{equation}
+}
+
+%\newcommand{\hwdue}{Wednesday, January 27
+
+\newtheorem{prob}{}
+\newtheorem{sol}{Solution}
+\definecolor{cit}{rgb}{0.05,0.2,0.45}
+\newcommand{\solution}{\medskip\noindent{\color{DarkBlue}\textbf{Solution:}}}
+\begin{document}
+{\Large
+\begin{center}{CS5800: Algorithms} --- \instructor \end{center}}
+{\large
+\vspace{10pt}
+\noindent Homework~\hwnum \vspace{2pt}%\\
+%Due :~\hwdue
+}
+\bigskip
+{\large \noindent Name: \yourname }
+\vspace{15pt}
+
+ % Solutons
+
+% \begin{prob} \textbf{(x points)}
+% \end{prob}
+
+% \solution
+% \begin{enumerate}
+%     \item $n^2 + 7n + 1$ is $\Omega(n^2)$ \\
+%     \solution \\
+
+%     \item \textbf{Some math equation here} \\
+%     \solution \\
+% \end{enumerate}
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+
+\solution \\
+
+\begin{verbatim}
+    
+    TREE-INSERT(root,key):
+
+        if root is None:
+            root = CreateNewNode(key)
+            return root
+        
+        if key < root.value:
+            if root.left == None:
+                root.left = CreateNewNode(key)
+            else:
+                TREE-INSERT(root.left,key)
+        
+        else if key>root.value:
+            if root.right == None:
+                root.right = CreateNewNode(key)
+            else:
+                TREE-INSERT(root.right,key)
+        
+        return root
+\end{verbatim}
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+
+\solution \\
+
+The operation of deleting nodes in BST is not commutative. For example, deleting node x and then node y, may not result in the same tree
+that deleting node y and deleting node x gives out to be. This is due to the fact that when the first operation of deletion is carried out,
+there are chances that the tree would be altered differently than its counterpart operation. So thats why BST is not commutative necessarily. \\
+
+Lets consider a BST with the following structure \\
+
+\includegraphics[width=0.5\textwidth]{images/q2_1.png}
+
+There are two cases here that are used to better understand the commutative property\\
+
+\textbf{a. Deleting 3 and then 7} \\
+
+When we first delete 7, element 8 replaces 7 spot as the successor. The resulting tree is as follows
+
+\includegraphics[width=0.5\textwidth]{images/q2_2.png}
+
+When we delete 3, since it has no children, its simply removed
+
+\includegraphics[width=0.5\textwidth]{images/q2_3.png}
+
+\textbf{b. Deleting 7 and then 3} \\
+
+First we remove 3, because it has no children, it is just deleted
+
+\includegraphics[width=0.5\textwidth]{images/q2_4.png}
+
+Then, we replace 7 with 8 when we delete 7
+
+\includegraphics[width=0.5\textwidth]{images/q2_3.png}
+
+Here we can see that even though the sequence was different, the output was same. However this is usually not the case\\
+
+
+\begin{prob} \textbf{(10 points)}
+\end{prob}
+
+\solution \\
+
+The below diagram shows a simple red black tree
+
+\includegraphics[width=0.5\textwidth]{images/q3_1.jpeg}
+
+The above tree follows rules 1,3,4,5. \\
+
+Now as described by the question, we make the root element 5 as black
+
+\includegraphics[width=0.5\textwidth]{images/q3_2.jpeg}
+
+Now lets compare the rules of RBT to check whether the modified version still adheres to the rules. \\
+
+1. Here the rule 1 hasnt been violated since every node is colored either red or black. \\
+
+2. Since the color of the root node is black, rule 2 hasnt been violated. \\
+
+3. Here since there are no further color changes or new nodes that were created, there is no change and hence no red nodes have red children. \\
+
+4. Every path has equal number of black nodes, so this rule hasnt been violated here. \\
+
+5. Here all the nil nodes are still black, so property 5 hasnt been violated too. \\
+
+As we can see from the above description of rules, even though the color of the root node is changed from red to black, there are no observable
+differences with the rules. So rules have been preserved.
+
+\begin{prob} \textbf{(15 points)}
+\end{prob}
+
+\solution \\
+
+\begin{verbatim}
+    
+    RIGHT-ROTATE(T,x):
+
+    if x.left!= NIL:
+        y = x.left
+        x.left = y.right
+
+        if y.right!=NIL:
+            y.right.parent = x
+        
+        y.parent = x.parent
+
+        if x.parent == NIL:
+            T.root = y
+        
+        else if x == x.parent.right:
+            x.parent.right = y
+        else:
+            x.parent.left = y
+        
+        y.right = x
+        x.parent = y
+\end{verbatim}
+
+\begin{prob} \textbf{(15 points)}
+\end{prob}
+
+\solution \\
+
+Height 2 
+
+\includegraphics[width=0.5\textwidth]{images/q5_1.jpeg}
+
+Height 3
+
+\includegraphics[width=0.5\textwidth]{images/q5_2.jpeg}
+
+Height 4 
+
+\includegraphics[width=0.5\textwidth]{images/q5_3.jpeg}
+
+Height 5
+
+\includegraphics[width=0.5\textwidth]{images/q5_4.jpeg}
+
+Height 6
+
+\includegraphics[width=0.4\textwidth]{images/q5_5.jpeg}
+\\
+\\
+\\
+\begin{prob} \textbf{(10 points)}
+\end{prob}
+\solution \\
+
+Setting the newly inserted node $z$ as black would immediately impact the balance of the red black tree. \\
+
+This is because the property 5 would be violated, where all the paths leading from the root to the leaves have the same number of black nodes.
+However this could be adjusted, by rotating the tree and doing color changes, but would make the whole operation more complex and time consuming,
+indirectly affecting more parts of the tree.
+
+
+\begin{prob} \textbf{(18 points)}
+\end{prob}
+
+\solution \\
+
+RBT after inserting 4
+
+\includegraphics[width=0.5\textwidth]{images/q7_1.jpeg}
+
+RBT after inserting 38
+
+\includegraphics[width=0.5\textwidth]{images/q7_2.jpeg}
+
+RBT after inserting 31
+
+\includegraphics[width=0.5\textwidth]{images/q7_3.jpeg}
+
+RBT after inserting 12
+
+\includegraphics[width=0.5\textwidth]{images/q7_4.jpeg}
+
+RBT after inserting 19
+
+\includegraphics[width=0.5\textwidth]{images/q7_5.jpeg}
+
+RBT after inserting 8
+
+\includegraphics[width=0.5\textwidth]{images/q7_6.jpeg}
+
+
+\end{document}

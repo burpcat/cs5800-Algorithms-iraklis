@@ -1,0 +1,352 @@
+\documentclass[11pt]{article}
+\newcommand{\yourname}{Avinash R. Arutla}
+\def\comments{0}
+%format and packages
+%\usepackage{algorithm, algorithmic}
+\usepackage{algpseudocode}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{verbatim}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{microtype}
+\usepackage{kpfonts}
+\usepackage{palatino}
+\usepackage{tabto}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\DeclareMathAlphabet{\mathtt}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathtt}{bold}{OT1}{cmtt}{bx}{n}
+\DeclareMathAlphabet{\mathsf}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathsf}{bold}{OT1}{cmss}{bx}{n}
+\renewcommand*\ttdefault{cmtt}
+\renewcommand*\sfdefault{cmss}
+\renewcommand{\baselinestretch}{1.06}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{DarkGreen}{rgb}{0.15,0.5,0.15}
+\definecolor{DarkRed}{rgb}{0.6,0.2,0.2}
+\definecolor{DarkBlue}{rgb}{0.2,0.2,0.6}
+\definecolor{DarkPurple}{rgb}{0.4,0.2,0.4}
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+    linktocpage=true,
+    colorlinks=true, % false: boxed links; true: colored links
+    linkcolor=DarkBlue, % color of internal links
+    citecolor=DarkBlue, % color of links to bibliography
+    urlcolor=DarkBlue, % color of external links
+}
+\usepackage[boxruled,vlined,nofillcomment]{algorithm2e}
+\SetKwProg{Fn}{Function}{\string:}{}
+\SetKwFor{While}{While}{}{}
+\SetKwFor{For}{For}{}{}
+\SetKwIF{If}{ElseIf}{Else}{If}{:}{ElseIf}{Else}{:}
+\SetKw{Return}{Return}
+%enclosure macros
+\newcommand{\paren}[1]{\ensuremath{\left( {#1} \right)}}
+\newcommand{\bracket}[1]{\ensuremath{\left\{ {#1} \right\}}}
+\renewcommand{\sb}[1]{\ensuremath{\left[ {#1} \right\]}}
+\newcommand{\ab}[1]{\ensuremath{\left\langle {#1} \right\rangle}}
+%probability macros
+\newcommand{\ex}[2]{{\ifx&#1& \mathbb{E} \else \underset{#1}{\mathbb{E}} \fi \
+left[#2\right]}}
+\newcommand{\pr}[2]{{\ifx&#1& \mathbb{P} \else \underset{#1}{\mathbb{P}} \fi \
+left[#2\right]}}
+\newcommand{\var}[2]{{\ifx&#1& \mathrm{Var} \else \underset{#1}{\mathrm{Var}} \fi \
+left[#2\right]}}
+%useful CS macros
+\newcommand{\poly}{\mathrm{poly}}
+\newcommand{\polylog}{\mathrm{polylog}}
+\newcommand{\zo}{\{0,1\}}
+\newcommand{\pmo}{\{\pm1\}}
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\card}[1]{\left| #1 \right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\negl}{\mathrm{negl}}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\eqand}{\qquad \textrm{and} \qquad}
+\newcommand{\ind}[1]{\mathbb{I}\{#1\}}
+\newcommand{\sslash}{\ensuremath{\mathbin{/\mkern-3mu/}}}
+%mathbb
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+%mathcal
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+%theorem macros
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newcommand{\instructor}{Iraklis Tsekourakis}
+\newcommand{\hwnum}{4}
+
+\newcommand{\mymath}[1]{%
+\begin{equation}
+#1
+\end{equation}
+}
+
+%\newcommand{\hwdue}{Wednesday, January 27
+
+\newtheorem{prob}{}
+\newtheorem{sol}{Solution}
+\definecolor{cit}{rgb}{0.05,0.2,0.45}
+\newcommand{\solution}{\medskip\noindent{\color{DarkBlue}\textbf{Solution:}}}
+\begin{document}
+{\Large
+\begin{center}{CS5800: Algorithms} --- \instructor \end{center}}
+{\large
+\vspace{10pt}
+\noindent Homework~\hwnum \vspace{2pt}%\\
+%Due :~\hwdue
+}
+\bigskip
+{\large \noindent Name: \yourname }
+\vspace{15pt}
+
+ % Solutons
+
+% \begin{prob} \textbf{(x points)}
+% \end{prob}
+
+% \solution
+% \begin{enumerate}
+%     \item $n^2 + 7n + 1$ is $\Omega(n^2)$ \\
+%     \solution \\
+
+%     \item \textbf{Some math equation here} \\
+%     \solution \\
+% \end{enumerate}
+
+\begin{prob} \textbf{(10 points)}
+\end{prob}
+
+\solution \\
+
+Bucket sorts worst case scenario $\theta(n)$ occurs when all the elements fall into a single bucket. If the sorting algorithm
+which is used here is a quadratic time sorting algorithm such as insertion sort, which is used in small sets due to its low overhead,
+the complexity increases to $\theta(n^2)$.
+\\
+
+Here bucket sort assumes that the elements are divided into buckets uniformly, however when elements are skewed and have uninform distribution,
+the classic bucket sort assumption fails, leading to unevenly distributed buckets.
+\\
+
+To preserve the linear average case running time of bucket sort and its worst case running time to $O(nlogn)$, we can use a different sorting algorithm
+other than the classic quadratic time sorting algorithm. We can use any sorting algorithm like merge sort or quick sort which have a better worst case
+running time than insertion sort.
+\\
+
+In such a case, in the worst case running time, the complexity is reduced from $O(n^2)$ to $O(nlogn)$. This ensures the algorithm completes completes in linear time,
+In case of normal running scenario, the overhead introduced by the algorithm is reduced by evenly spread buckets with lesser number of elements, which makes the difference
+due to overhead negligible.
+
+\begin{prob} \textbf{(15 points)}
+\end{prob}
+
+\solution\\
+
+Here N is the random variable, equal to the number of flips for two coins
+
+So, there are total 4 possible outcomes
+
+\[ HH TT HT TH\]
+
+So, the expectation of X can be written as
+
+\[ E[X] = \sum_{}^{} x_i P(x_i) \]
+\[ E[X] = 0\frac{1}{4} + 1\frac{1}{2} + 2\frac{1}{4} \]
+
+This is because, \\
+
+P(X=0) = both tails (1/4) \\
+
+P(X=1) = one head, one tail (1/2) \\
+
+P(X=2) = both heads (1/4) \\
+
+\[ E[X^2] = \sum_{}^{} x_i^2 \]
+\[ E[X^2] = 0^2\frac{1}{4} + 1^2\frac{1}{2} + 2^2\frac{1}{4} \]
+\[ E[X^2] = 0 + \frac{1}{2} + 1 \]
+\[ E[X^2] = \frac{3}{2} \]
+
+\[ E^2[X] = E[X] * E[X] \]
+\[ E^2[X] = 1 * 1 \]
+\[ E^2[X] = 1\]
+
+\begin{prob} \textbf{(10 points)}
+\end{prob}
+
+\solution \\
+
+The problem can be approached by finding the minimum and maximum numbers of the given set/array, and then finding any other number
+from the set which satisfies the minimum nor maximum condition. However this approach is not suitable even though we break it down
+into smaller components.\\
+
+Instead we can use the tournament method, which aims to identify numbers the numbers which is not the smallest or largest with minimal
+comparisons.
+
+\textbf{Pairwise Comparisons}
+
+Divide the \(n\) numbers into pairs and compare each pair, which takes \(\frac{n}{2}\) comparisons. This step effectively identifies candidates for being neither the minimum nor the maximum, as one number in each pair is not the smallest, and the other is not the largest in that pair. \\
+
+\textbf{Finding Potential Candidates}
+
+From each pair, select the "loser" for the next round of comparisons to find the maximum of these "losers" (or the minimum for the "winners"). This step ensures that the number chosen after all comparisons is not the overall minimum or maximum. \\
+
+Assuming \(n\) is even, you will have \(\frac{n}{2}\) losers and \(\frac{n}{2}\) winners. It takes \(\frac{n}{2} - 1\) comparisons to find the maximum among the losers or the minimum among the winners.\\
+
+\textbf{Total Comparisons}
+
+The total number of comparisons for \(n\) numbers using this method is:
+\begin{itemize}
+    \item \(\frac{n}{2}\) comparisons for the initial pairing.
+    \item \(\frac{n}{2} - 1\) comparisons to find a non-minimum/maximum among the "losers" or "winners."
+\end{itemize}
+So, the total number of comparisons is \(\frac{n}{2} + \frac{n}{2} - 1 = n - 1\).\\
+
+For \(n > 2\) distinct numbers, to find a number that is neither the minimum nor the maximum, the smallest number of comparisons needed is \(n - 1\). This method efficiently narrows down a candidate that satisfies the conditions without needing to explicitly find both the minimum and maximum values first. \\
+
+\begin{prob} \textbf{(15 points)}
+\end{prob}
+
+\solution \\
+
+The concept of RANDOMZED-SELECT is to select an element at random, and divide the array into two subarrays, elements less than the pivot and greater than the pivot.
+Then it recursively calls itself on the subarray part where it has the ith smallest element. \\
+
+RANDOMIZED-SELECT never makes a recursive call to a zero length array because of the following reasons
+\begin{enumerate}
+    \item The base case here is, it checks if the length of array is 1, if so it returns the one element cause there are no comparisons to make.
+    \item When the array is partitioned, it makes two non overlapping subarrays according to the pivot, where one array is smaller than pivot and one is larger than the pivot.
+    \item The recursive calls are made on the conditions where, i<k and i>k, where k = 1-p+1
+    \item Here q = pivots position, p = starting index and k= length of left subarray
+    \item Left array case : When i<k, the algorithm recursively parses the left subarray
+    \item Right array case : When i>k, the algorithm parses the right subarray, adjusting i and i-k to accomodate new index.
+    \item When we term this mathematically, the algorithm works only when there are elements in the left or right subarrays to make the comparisons i<k and i>k. If there are no elements then there are no comparisons to make, and hence the algorithm doesnt work.
+\end{enumerate}
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+
+\solution
+
+\begin{verbatim}
+    RANDOMIZED-PARTITION(A,p,r):
+
+        temp = RANDOM(p-1,r)
+        swap(A[temp],A[r])
+
+        return PARTITION(A,p,r)
+    
+    RANDOMIZED-SELECT(A,p,r,i)
+
+        while p<r:
+            q = RANDOMIZED-PARTITION(A,p,r)
+            holder = q-p+1
+
+            if i== holder:
+                return A[q]
+            
+            else if i<holder:
+                r = q-1
+            
+            else:
+                i-=hold
+                p=q+1
+            return A[p]
+    
+    RANDOMIZED-SELECT(A,p,r,i)
+    
+\end{verbatim}
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+
+\solution \\
+
+
+To implement a queue using two stacks, we utilize the fundamental operations of stacks—push (to add an item) and pop (to remove the top item)—to mimic the enqueue (add to the back) and 
+dequeue (remove from the front) operations of a queue. The key idea is to use one stack for enqueuing elements and another stack for dequeuing elements. When we need to dequeue an element, 
+we reverse the order of the enqueued elements by moving them to the second stack, making the front element accessible (due to the Last-In-First-Out property of stacks). \\
+
+\begin{verbatim}
+    Stack EnqueueStack, DequeueStack
+
+    Function Enqueue(element)
+        Push(EnqueueStack, element)
+
+    Function Dequeue()
+        If IsEmpty(DequeueStack)
+            While Not IsEmpty(EnqueueStack)
+                Push(DequeueStack, Pop(EnqueueStack))
+        If IsEmpty(DequeueStack)
+            Error "Queue is empty"
+        Return Pop(DequeueStack)
+
+\end{verbatim}
+
+Enqueue Operation : The enqueue operation takes a single push operation which takes $O(1)$ time. \\
+
+Dequeue Operation : The dequeue operation usually takes $O(1)$ time, but in worst case scenario where the dequeue stack is empty,
+it might take $O(n)$ time because every element from the enqueue stack needs to be moved to the dequeue stack. However this overhead 
+is amortized because for each operation only one element is moved before its dequeued. so technically the time complexity still stays at O(1). \\
+
+In summary, using two stacks to implement a queue results in $O(1)$ amortized time per enqueue and dequeue operation, making it an efficient data structure for queue operations over a long sequence of actions.
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+
+\solution
+
+\begin{verbatim}
+    
+    REVERSE-LL(head):
+
+        prev = NULL
+        next = NULL
+        current = head
+
+        while current!= NULL
+            next = current.next
+            current.next = prev
+            prev = current
+            current = next
+        
+        head = prev
+        return head
+
+\end{verbatim}
+
+The general algorithm of working is, the loop will iterate till the current element is equal to NULL, where the current element
+will be linked to the previous elemenet and the next element is similarly linked to the previous element which was the current element before.
+The loop then runs till the final element is reached and by that time the LL is reveresed and the final element is assigned as the HEAD of the Linked List
+ 
+
+\end{document}

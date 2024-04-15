@@ -1,0 +1,368 @@
+\documentclass[11pt]{article}
+\newcommand{\yourname}{Avinash R. Arutla}
+\def\comments{0}
+%format and packages
+%\usepackage{algorithm, algorithmic}
+\usepackage{algpseudocode}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{verbatim}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{microtype}
+\usepackage{kpfonts}
+\usepackage{palatino}
+\usepackage{tabto}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\DeclareMathAlphabet{\mathtt}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathtt}{bold}{OT1}{cmtt}{bx}{n}
+\DeclareMathAlphabet{\mathsf}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathsf}{bold}{OT1}{cmss}{bx}{n}
+\renewcommand*\ttdefault{cmtt}
+\renewcommand*\sfdefault{cmss}
+\renewcommand{\baselinestretch}{1.06}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{DarkGreen}{rgb}{0.15,0.5,0.15}
+\definecolor{DarkRed}{rgb}{0.6,0.2,0.2}
+\definecolor{DarkBlue}{rgb}{0.2,0.2,0.6}
+\definecolor{DarkPurple}{rgb}{0.4,0.2,0.4}
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+    linktocpage=true,
+    colorlinks=true, % false: boxed links; true: colored links
+    linkcolor=DarkBlue, % color of internal links
+    citecolor=DarkBlue, % color of links to bibliography
+    urlcolor=DarkBlue, % color of external links
+}
+\usepackage[boxruled,vlined,nofillcomment]{algorithm2e}
+\SetKwProg{Fn}{Function}{\string:}{}
+\SetKwFor{While}{While}{}{}
+\SetKwFor{For}{For}{}{}
+\SetKwIF{If}{ElseIf}{Else}{If}{:}{ElseIf}{Else}{:}
+\SetKw{Return}{Return}
+%enclosure macros
+\newcommand{\paren}[1]{\ensuremath{\left( {#1} \right)}}
+\newcommand{\bracket}[1]{\ensuremath{\left\{ {#1} \right\}}}
+\renewcommand{\sb}[1]{\ensuremath{\left[ {#1} \right\]}}
+\newcommand{\ab}[1]{\ensuremath{\left\langle {#1} \right\rangle}}
+%probability macros
+\newcommand{\ex}[2]{{\ifx&#1& \mathbb{E} \else \underset{#1}{\mathbb{E}} \fi \
+left[#2\right]}}
+\newcommand{\pr}[2]{{\ifx&#1& \mathbb{P} \else \underset{#1}{\mathbb{P}} \fi \
+left[#2\right]}}
+\newcommand{\var}[2]{{\ifx&#1& \mathrm{Var} \else \underset{#1}{\mathrm{Var}} \fi \
+left[#2\right]}}
+%useful CS macros
+\newcommand{\poly}{\mathrm{poly}}
+\newcommand{\polylog}{\mathrm{polylog}}
+\newcommand{\zo}{\{0,1\}}
+\newcommand{\pmo}{\{\pm1\}}
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\card}[1]{\left| #1 \right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\negl}{\mathrm{negl}}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\eqand}{\qquad \textrm{and} \qquad}
+\newcommand{\ind}[1]{\mathbb{I}\{#1\}}
+\newcommand{\sslash}{\ensuremath{\mathbin{/\mkern-3mu/}}}
+%mathbb
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+%mathcal
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+%theorem macros
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newcommand{\instructor}{Iraklis Tsekourakis}
+\newcommand{\hwnum}{5}
+
+\newcommand{\mymath}[1]{%
+\begin{equation}
+#1
+\end{equation}
+}
+
+%\newcommand{\hwdue}{Wednesday, January 27
+
+\newtheorem{prob}{}
+\newtheorem{sol}{Solution}
+\definecolor{cit}{rgb}{0.05,0.2,0.45}
+\newcommand{\solution}{\medskip\noindent{\color{DarkBlue}\textbf{Solution:}}}
+\begin{document}
+{\Large
+\begin{center}{CS5800: Algorithms} --- \instructor \end{center}}
+{\large
+\vspace{10pt}
+\noindent Homework~\hwnum \vspace{2pt}%\\
+%Due :~\hwdue
+}
+\bigskip
+{\large \noindent Name: \yourname }
+\vspace{15pt}
+
+ % Solutons
+
+% \begin{prob} \textbf{(x points)}
+% \end{prob}
+
+% \solution
+% \begin{enumerate}
+%     \item $n^2 + 7n + 1$ is $\Omega(n^2)$ \\
+%     \solution \\
+
+%     \item \textbf{Some math equation here} \\
+%     \solution \\
+% \end{enumerate}
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+
+\solution \\ 
+
+\begin{verbatim}
+    ENQUEUE-SL(L,x):
+        if L.tail == NIL:
+            // There are no elements in the linkedlist
+            L.head = x
+            L.tail = x
+        
+        else:
+            // We update the tail of the linkedlist
+            L.tail.next = x
+            L.tail = x
+        
+        x.next = NIL
+        return L
+    
+
+    DEQUEUE-SL(L):
+
+        if L.head == NIL:
+            //There is no element to remove from the linkedlist
+            return "No element present"
+        
+        else if L.head == L.tail:
+            // There is only a single element present in the LL
+            x = L.head
+            L.tail = NIL
+            L.head = NIL
+            return x
+        
+        else:
+            // We remove the HEAD, and the next element is made the HEAD of the LL
+            x = L.head
+            L.head = L.head.next
+            return x
+\end{verbatim}
+
+\begin{prob} \textbf{(15 points)}
+\end{prob}
+
+\solution \\
+
+To address the challenge of implementing a direct address table, where the keys not be distinct is a problem becuase direct address table's concept is to directly index elements into an array
+so that it can provide constant time operations. When the keys here are not distinct it will pose a problema and increase the complexity of the operation. \\
+
+To fix this, we can use the combination of direct address table with chaining. Now here, every slot in the direct address table instead of holding just one element
+contain an access to the HEAD of a linkedlist which will be used for chaining. Through this method, we can accomodate non unique keys and their satellite data. \\
+
+The classic INSERT, SEARCH, DELETE operations wont be affected in any manner, and their approach is as follows\\
+
+INSERT \\
+
+To insert an element into the direct address table, we use the key of the element to compute the slot in the direct address table, we then add the element
+to the next available slot in the linkedlist. This operation is O(1) because it takes a single operation to insert the element.\\
+
+SEARCH \\
+
+To search for an element in the direct address table, we use the element to find the index in the table, and assuming that all
+the elements in the linkedlist are uniform or near uniform, we use simple traversal to find the element in O(1) time.\\
+
+DELETE \\
+
+For deletion here, we can use the pointer of the element, not the key and directly delete it from the linkedlist. Here, since the deletion
+operation is carried out by directly referencing the element's pointer, the complexity is just O(1) here. \\
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+
+\solution \\
+
+Assuming here, we are using a hash function $h$, to hash $n$ distinct keys into an array $T$ of length $m$. \\
+
+Since here we are using independent uniform hash functions, there might be a chance that an element may be allocated an index position
+where another element already resides. This causes collisions with other elements in the hash table. \\
+
+Number of ways to take $2$ elements from a total of $n$ elements is given by permutation of $n^p_r$. Since any element can be hashed into a hash table
+with uniform probability, the probability that two elements can be inserted into the same index of the hash table of length $m$ is given by $\frac{1}{m}$. \\
+
+\[ E[X] = \frac{n}{2}. \frac{1}{m}\]
+\[ E[X] = \frac{n(n-1)}{2}. \frac{1}{m}\]
+\[ E[X] = \frac{n^2-n}{2m}\]
+
+Therefore the random variable $E[X]$, clarifies the probability that such an event might take place.
+
+\begin{prob} \textbf{(18 points)}
+\end{prob}
+
+\solution \\
+
+Here we have a hash table with 9 slots. The hashing function that was given to us was, $h(k) = k|9|$, where the calculation are as follows. \\
+
+\begin{itemize}
+    \item \textbf{Key 5:} 
+    \begin{equation*}
+    h(5) = 5 \mod 9 = 5
+    \end{equation*}
+    Key 5 is placed in slot 5.
+
+    \item \textbf{Key 28:} 
+    \begin{equation*}
+    h(28) = 28 \mod 9 = 1
+    \end{equation*}
+    Key 28 is placed in slot 1.
+
+    \item \textbf{Key 19:} 
+    \begin{equation*}
+    h(19) = 19 \mod 9 = 1
+    \end{equation*}
+    Key 19 collides with Key 28 and is chained in slot 1.
+
+    \item \textbf{Key 15:} 
+    \begin{equation*}
+    h(15) = 15 \mod 9 = 6
+    \end{equation*}
+    Key 15 is placed in slot 6.
+
+    \item \textbf{Key 20:} 
+    \begin{equation*}
+    h(20) = 20 \mod 9 = 2
+    \end{equation*}
+    Key 20 is placed in slot 2.
+
+    \item \textbf{Key 33:} 
+    \begin{equation*}
+    h(33) = 33 \mod 9 = 6
+    \end{equation*}
+    Key 33 collides with Key 15 and is chained in slot 6.
+
+    \item \textbf{Key 12:} 
+    \begin{equation*}
+    h(12) = 12 \mod 9 = 3
+    \end{equation*}
+    Key 12 is placed in slot 3.
+
+    \item \textbf{Key 17:} 
+    \begin{equation*}
+    h(17) = 17 \mod 9 = 8
+    \end{equation*}
+    Key 17 is placed in slot 8.
+
+    \item \textbf{Key 10:} 
+    \begin{equation*}
+    h(10) = 10 \mod 9 = 1
+    \end{equation*}
+    Key 10 collides with Keys 28 and 19, and is chained in slot 1.
+\end{itemize}
+
+
+\includegraphics[width=0.9\textwidth]{images/q4.jpeg}
+
+\begin{prob} \textbf{(14 points)}
+\end{prob}
+
+\solution \\
+
+\includegraphics[width=1.1\textwidth]{images/q5.jpeg}
+
+The mod function given to us here is $h(k) = k|9|$. \\
+
+for h(9), 9 mod 9 = 0. So we place the element in index 0 according to the rules, here the element is already present in index 0,
+so its safe to assume it was placed there because of the same reason\\
+
+for h(18), 18 mod 9 = 0. Here we already know that 9 was occupying index 0, so in consideration of open addressing and linear probing,
+18 was added to index 1 as seen from the diagram. \\
+
+for h(12), 12 mod 9 = 3. So as we can see from the diagram, since the mod results in 3, we add 12 element to the index 3. \\
+
+for h(3), 3 mod 9 = 3. We are already aware that 12 resides at index 3, so in considerating of open addressing and linear probing,
+we place element 3 at the next available slot which is slot 4. \\
+
+for h(14), 14 mod 9 = 5. We can see that that slot 5 is empty, so in consideration we place element 14 at slot 5. \\
+
+for h(4), 4 mod 9 = 4, as we already know that slot 4 is occupied by 3, and the next slot which is slot 5 is occupied by 14, so 
+in consideration of open addressing and linear probing, we place element 4 in the next available slot which is slot 6. \\
+
+for h(21), 21 mod 9 = 3, as we can see from the diagram that slot 3,4,5,6, are consecutively occupied by other elements, the next free
+slot is slot 7, so we place element 21 in slot 7 due to open addressing and linear probing.\\
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+
+\solution \\
+
+The non recursive solution for a inorder tree walk is as follows
+
+\begin{verbatim}
+    // A stack will be used to track the nodes, so that the tree runs in O(n) order.
+
+    ITERATIVE-INORDER-TREE-WALK(root):
+        S = new_stack()
+        current = root() // a new node which is replicated for traversing
+
+        while not(S.isEmpty()) or current != NIL:
+            // if current== nil, we reached the end of the node
+            // if S.isEmpty() is true, that all the elements have been traversed.
+
+            if current!= NIL:
+
+                PUSH(s,current)
+                current = current.left
+            
+            else:
+                // we reached the end of tree path fdrom the traversal from the root,
+                // and the element at the top of thestack is the lowest
+
+                current = POP(s)
+                print(current)
+
+                // moving to the right to find the next smallest element.
+                current = current.right 
+
+
+\end{verbatim}
+
+
+
+\end{document}

@@ -1,0 +1,449 @@
+\documentclass[11pt]{article}
+\newcommand{\yourname}{Avinash R. Arutla}
+\def\comments{0}
+%format and packages
+%\usepackage{algorithm, algorithmic}
+\usepackage{algpseudocode}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{verbatim}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{microtype}
+\usepackage{kpfonts}
+\usepackage{palatino}
+\usepackage{tabto}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\DeclareMathAlphabet{\mathtt}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathtt}{bold}{OT1}{cmtt}{bx}{n}
+\DeclareMathAlphabet{\mathsf}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathsf}{bold}{OT1}{cmss}{bx}{n}
+\renewcommand*\ttdefault{cmtt}
+\renewcommand*\sfdefault{cmss}
+\renewcommand{\baselinestretch}{1.06}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{DarkGreen}{rgb}{0.15,0.5,0.15}
+\definecolor{DarkRed}{rgb}{0.6,0.2,0.2}
+\definecolor{DarkBlue}{rgb}{0.2,0.2,0.6}
+\definecolor{DarkPurple}{rgb}{0.4,0.2,0.4}
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+    linktocpage=true,
+    colorlinks=true, % false: boxed links; true: colored links
+    linkcolor=DarkBlue, % color of internal links
+    citecolor=DarkBlue, % color of links to bibliography
+    urlcolor=DarkBlue, % color of external links
+}
+\usepackage[boxruled,vlined,nofillcomment]{algorithm2e}
+\SetKwProg{Fn}{Function}{\string:}{}
+\SetKwFor{While}{While}{}{}
+\SetKwFor{For}{For}{}{}
+\SetKwIF{If}{ElseIf}{Else}{If}{:}{ElseIf}{Else}{:}
+\SetKw{Return}{Return}
+%enclosure macros
+\newcommand{\paren}[1]{\ensuremath{\left( {#1} \right)}}
+\newcommand{\bracket}[1]{\ensuremath{\left\{ {#1} \right\}}}
+\renewcommand{\sb}[1]{\ensuremath{\left[ {#1} \right\]}}
+\newcommand{\ab}[1]{\ensuremath{\left\langle {#1} \right\rangle}}
+%probability macros
+\newcommand{\ex}[2]{{\ifx&#1& \mathbb{E} \else \underset{#1}{\mathbb{E}} \fi \
+left[#2\right]}}
+\newcommand{\pr}[2]{{\ifx&#1& \mathbb{P} \else \underset{#1}{\mathbb{P}} \fi \
+left[#2\right]}}
+\newcommand{\var}[2]{{\ifx&#1& \mathrm{Var} \else \underset{#1}{\mathrm{Var}} \fi \
+left[#2\right]}}
+%useful CS macros
+\newcommand{\poly}{\mathrm{poly}}
+\newcommand{\polylog}{\mathrm{polylog}}
+\newcommand{\zo}{\{0,1\}}
+\newcommand{\pmo}{\{\pm1\}}
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\card}[1]{\left| #1 \right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\negl}{\mathrm{negl}}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\eqand}{\qquad \textrm{and} \qquad}
+\newcommand{\ind}[1]{\mathbb{I}\{#1\}}
+\newcommand{\sslash}{\ensuremath{\mathbin{/\mkern-3mu/}}}
+%mathbb
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+%mathcal
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+%theorem macros
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newcommand{\instructor}{Iraklis Tsekourakis}
+\newcommand{\hwnum}{8}
+
+\newcommand{\mymath}[1]{%
+\begin{equation}
+#1
+\end{equation}
+}
+
+%\newcommand{\hwdue}{Wednesday, January 27
+
+\newtheorem{prob}{}
+\newtheorem{sol}{Solution}
+\definecolor{cit}{rgb}{0.05,0.2,0.45}
+\newcommand{\solution}{\medskip\noindent{\color{DarkBlue}\textbf{Solution:}}}
+\begin{document}
+{\Large
+\begin{center}{CS5800: Algorithms} --- \instructor \end{center}}
+{\large
+\vspace{10pt}
+\noindent Homework~\hwnum \vspace{2pt}%\\
+%Due :~\hwdue
+}
+\bigskip
+{\large \noindent Name: \yourname }
+\vspace{15pt}
+
+ % Solutons
+
+% \begin{prob} \textbf{(x points)}
+% \end{prob}
+
+% \solution
+% \begin{enumerate}
+%     \item $n^2 + 7n + 1$ is $\Omega(n^2)$ \\
+%     \solution \\
+
+%     \item \textbf{Some math equation here} \\
+%     \solution \\
+% \end{enumerate}
+
+\begin{prob} \textbf{(25 points)}
+\end{prob}
+
+\solution \\
+\begin{verbatim}
+
+    def ACTIVITY_SELECTOR(s, f):
+    n = len(s)
+    c = [[0 for _ in range(n+2)] for _ in range(n+2)]
+    p = [[None for _ in range(n+2)] for _ in range(n+2)]
+    
+    for l in range(2, n+2):
+        for i in range(0, n-l+2):
+            j = i + l
+            for k in range(i+1, j):
+                if f[i] <= s[k] and f[k] <= s[j-1]:
+                    q = c[i][k] + c[k][j] + 1
+                    if q > c[i][j]:
+                        c[i][j] = q
+                        p[i][j] = k
+    
+    selected_activities = get_activities(p, 0, n+1)
+    print("Maximum size of mutually compatible activities:", c[0][n+1])
+    print("Selected activities (1-indexed):", selected_activities)
+    return selected_activities
+
+def get_activities(p, i, j):
+    if p[i][j] is None:
+        return []
+    else:
+        return get_activities(p, i, p[i][j]) + [p[i][j]] + get_activities(p, p[i][j], j)
+
+
+\end{verbatim}
+
+Time Complexity : From the nested loop here, we can inference that the time complexity $O(n^3)$. This is because for
+each pair i,j it checks each in the range for compatibility. Here n is the number of activities.\\
+
+The Greedy ACTIVITY-SELECTOR operates in $O(nlogn)$ for sorting and O(n) for activity selection. Here we can clearly
+understand that greedy algorithm is much more effecient than dyanmic programming for larger inputs.
+
+\begin{prob} \textbf{(15 points)}
+\end{prob}
+
+\solution \\
+
+To understand that not all greedy approaches produce a maximum size set of mutually compatible activities in the activity selection problem,
+we can give examples for each strategy where it fails. \\
+
+\textbf{Selection an activity with the least duration.} \\
+
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    Activity Number & Starting Time & Finishing Time & Duration \\
+    \hline
+    1 & 1 & 4 & 3 \\
+    2 & 2 & 3 & 1 \\
+    3 & 3 & 5 & 2 \\
+    4 & 5 & 6 & 1 \\
+    
+    \hline
+\end{tabular}
+
+We always select the activites which have the least duration, from those compatible with the previously selected activities. \\
+
+Here, based on the approach, we would be selecting activity $2$, due to the overlapping times with activity $1$ and $3$,
+we cannot select them, so we would be selecting only activity $2$ and $4$. However if we didnt choose the shortest duration approach,
+we can choose $1$,$3$,$4$.
+
+\textbf{Selection an activity which overlaps the least with other activities.} \\
+
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    Activity Number & Starting Time & Finishing Time & Duration \\
+    \hline
+    1 & 1 & 3 & 2 \\
+    2 & 2 & 5 & 3 \\
+    3 & 3 & 4 & 1 \\
+    4 & 4 & 6 & 2 \\
+    5 & 5 & 7 & 2 \\
+    
+    \hline
+\end{tabular}
+
+With this approach, we would select activity $3$, as it overlaps with only $2$ and $4$. Now due to this we can only select
+$1$, $3$, and $5$. So, we can only select 3 pairs of activities here. However if we didnt follow this approach we can select
+$1$, $4$, and $5$, which doesnt necessarily increase the number of activities, but negates this theorem of choosing better
+activities to work on.
+
+\textbf{Selection an activity with the earliest starting time} \\
+
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    Activity Number & Starting Time & Finishing Time & Duration \\
+    \hline
+    1 & 1 & 2 & 1 \\
+    2 & 2 & 4 & 2 \\
+    3 & 3 & 5 & 2 \\
+    4 & 5 & 6 & 1 \\
+    
+    \hline
+\end{tabular}
+
+Choosing an acitivity with the least duration would first let us pick $1$, then $2$, then $4$, leading us to pick a
+total of 3 activities. However the optimal selection would be $1$, $3$, and $4$, which proves that selecting based on the 
+earliest duration may reach an optimal solution but is not guarenteeed. \\ \\ \\ \\
+
+\begin{prob} \textbf{(15 points)}
+\end{prob}
+
+\solution \\
+
+Lets consider the following problem to solve the question
+
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    Item & Value ($v_i$) & Weight ($w_i$) & Ration ($k_i$) \\
+    \hline
+    1 & 200 & 10 & 20 \\
+    2 & 150 & 15 & 10 \\
+    3 & 90 & 45 & 2 \\
+    
+    \hline
+\end{tabular}
+\\
+
+To prove that the fractional knapsack problem has the greedy choice property, we need to show that taking the item 
+(or fraction of an item) with the highest value-to-weight ratio (value per unit weight) as the first choice leads to an optimal solution. \\
+
+For the fractional knapsack problem, the greedy choice involves selecting items based on their value-to-weight ratio $\frac{v_i}{w_i}$,
+starting with the highest. This strategy is predicated on the premise that maximizing value per unit weight at each step will lead to an optimal overall solution. \\
+
+Let's assume for contradiction that there exists an optimal solution $S_i$, that does not prioritize the item with the highest value-to-weight ratio $k_i$.
+
+Case 1 (Underfilled Knapsack): If $S^*$ does not fill the knapsack to its capacity, then we can add more of the item with the highest $\frac{v}{k}$, thereby increasing the total value of $S^*$. This contradicts the optimality of $S^*$ since we found a better solution.
+
+Case 2 (Fully Filled Knapsack): If $S^*$ is at capacity but includes an item with a lower $\frac{v_j}{k_j}$ than the highest available $\frac{v_i}{k_i}$, replacing any amount of this lower-ratio item with an item of higher ratio $\frac{v_i}{k_i}$ (while maintaining the same total weight) will increase the total value. This contradicts the assumption that $S^*$ was optimal.
+
+Given a knapsack capacity $W$ of 50 units, the greedy approach proceeds as follows: \\
+
+Item 1 is selected first because it has the highest $k_i$, after that $W$ becomes 30 units. \\
+Item 2 is selected next, there is enough capacity here, so $W$ becomes 15 units. \\
+Item 3 is selected next, there is enough capacity here, so $W$ becomes 13 units. \\
+
+The knapsack now contains Items 1, 2,and 3, maximizing the total value within the capacity limit. This example illustrates that by making the greedy choice of selecting items based on the highest value-to-weight ratio, we indeed reach an optimal solution.
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+
+\solution \\
+
+Transpose of a Directed Graph in Adjacency-List Representation. \\
+
+\begin{verbatim}
+    Transpose-Graph-Adj-List(G)
+        Initialize Adj_T[1..|V|] as new empty lists for each vertex in G
+            For each vertex u in V do
+                For each vertex v in the adjacency list of u (Adj[u]) do
+                    Append u to the adjacency list of v in Adj_T (Adj_T[v].append(u))
+    Return Adj_T
+    
+\end{verbatim}
+
+The algorithm iterates through each vertex $u$ and then through each edge $(u,v)$ from $u$.
+Since every edge in the graph is considered exactly once, the running time of this algorithm is $O(V+E)$,
+where $V$ is the number of vertices, and $E$ is the number of edges in the graph. This makes the algorithm perfect
+for sparse graphs
+
+Transpose of a Directed Graph in Adjacency-Matrix Representation \\
+
+\begin{verbatim}
+    Transpose-Graph-Adj-Matrix(A)
+        Let T be a new matrix of size |V|x|V|, initialized to zeros
+        For i = 1 to |V| do
+            For j = 1 to |V| do
+                Set T[j][i] = A[i][j]
+    Return T
+
+    
+\end{verbatim}
+
+The algorithm requires a nested loop that iterates over each cell of the $|V| x |V|$, adjacency matrix $A$
+where each cell corresponds to a potential edge in the graph. Since the operation inside the loop has a constant time complexity,
+and the loop iterates $V^2$. The time complexity here is $O(V^2)$. This reflects that the algorithm's efficiency is independent of the graph's sparsity, making it particularly suited for dense graphs
+
+\begin{prob} \textbf{(10 points)}
+\end{prob}
+
+\solution \\
+
+\begin{tabular}{|c|c|c|}
+    \hline
+    Vertex & distance (d) & $\pi$ \\
+    \hline
+    1 & 3 & 5 \\
+    2 & 1 & 3 \\
+    3 & 0 & NIL \\
+    4 & 1 & 3 \\
+    5 & 2 & 4 \\
+    
+    \hline
+\end{tabular}
+\\
+
+This table represents the shortest path distances from vertex 3 and their immediate predecessors in the BFS tree of the given graph. The distances and predecessors adhere to the paths uncovered in
+a breadth-first traversal starting from vertex 3.
+\\
+\\
+\\
+\\
+\\
+
+\begin{prob} \textbf{(15 points)}
+\end{prob}
+
+\solution \\
+
+\includegraphics[width=1\textwidth]{images/q6.jpg}
+
+\begin{tabular}{|c|c|c|}
+    \hline
+    Vertex & Discovered & Finished  \\
+    \hline
+    q & 1 & 16 \\
+    r & 17 & 20 \\
+    s & 2 & 7 \\
+    t & 8 & 15 \\
+    u & 18 & 19 \\
+    v & 3 & 6 \\
+    w & 4 & 5 \\
+    x & 9 & 12 \\
+    y & 13 & 14 \\
+    z & 10 & 11 \\
+    
+    \hline
+\end{tabular}
+
+The tree edges here are (q,s), (r,u), (s,v), (q,t), (t,x), (x,z), (t,y), (v,w)
+The back edges here are (y,q), (w,s), (z,x)
+The forward edges here are (q,w)
+The cross edges here are (r,y), (u,y)
+
+\begin{prob} \textbf{(10 points)}
+\end{prob}
+
+\solution \\
+
+\includegraphics[width=0.5\textwidth]{images/q7.png}
+
+\begin{tabular}{|c|c|c|}
+    \hline
+    label & Discovered & Finished  \\
+    \hline
+    m & 1 & 20 \\
+    q & 2 & 5 \\
+    t & 3 & 4 \\
+    r & 6 & 19 \\
+    u & 7 & 8 \\
+    y & 9 & 18 \\
+    v & 10 & 17 \\
+    w & 11 & 14 \\
+    z & 12 & 13 \\
+    x & 15 & 16 \\
+    n & 21 & 26 \\
+    o & 22 & 25 \\
+    s & 23 & 24 \\
+    p & 27 & 28 \\
+    
+    \hline
+\end{tabular}
+
+The topological result is p, n, o, s, m, r, y, v, x, w, z, u, q, t. This is generated by sorting
+the results in descending order of their finishing times.
+
+\begin{prob} \textbf{(10 points)}
+\end{prob}
+
+\solution \\
+
+\includegraphics[width=0.7\textwidth]{images/q8.png}
+\\
+The finishing times for each node are as follows
+\\
+\begin{tabular}{|c|c|c|}
+    \hline
+    Label & Discovered & Finished $\pi$ \\
+    \hline
+    q & 1 & 16 \\
+    r & 17 & 20 \\
+    s & 2 & 7 \\
+    t & 8 & 15 \\
+    u & 18 & 19 \\
+    v & 3 & 6 \\
+    w & 4 & 5 \\
+    x & 9 & 12 \\
+    y & 13 & 14 \\
+    z & 10 & 11 \\
+    
+    \hline
+\end{tabular}
+
+\end{document}

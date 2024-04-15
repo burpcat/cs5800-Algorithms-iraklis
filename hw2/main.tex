@@ -1,0 +1,424 @@
+\documentclass[11pt]{article}
+\newcommand{\yourname}{Avinash R. Arutla}
+\def\comments{0}
+%format and packages
+%\usepackage{algorithm, algorithmic}
+\usepackage{algpseudocode}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{verbatim}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{microtype}
+\usepackage{kpfonts}
+\usepackage{palatino}
+\usepackage{tabto}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\DeclareMathAlphabet{\mathtt}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathtt}{bold}{OT1}{cmtt}{bx}{n}
+\DeclareMathAlphabet{\mathsf}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathsf}{bold}{OT1}{cmss}{bx}{n}
+\renewcommand*\ttdefault{cmtt}
+\renewcommand*\sfdefault{cmss}
+\renewcommand{\baselinestretch}{1.06}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{DarkGreen}{rgb}{0.15,0.5,0.15}
+\definecolor{DarkRed}{rgb}{0.6,0.2,0.2}
+\definecolor{DarkBlue}{rgb}{0.2,0.2,0.6}
+\definecolor{DarkPurple}{rgb}{0.4,0.2,0.4}
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+    linktocpage=true,
+    colorlinks=true, % false: boxed links; true: colored links
+    linkcolor=DarkBlue, % color of internal links
+    citecolor=DarkBlue, % color of links to bibliography
+    urlcolor=DarkBlue, % color of external links
+}
+\usepackage[boxruled,vlined,nofillcomment]{algorithm2e}
+\SetKwProg{Fn}{Function}{\string:}{}
+\SetKwFor{While}{While}{}{}
+\SetKwFor{For}{For}{}{}
+\SetKwIF{If}{ElseIf}{Else}{If}{:}{ElseIf}{Else}{:}
+\SetKw{Return}{Return}
+%enclosure macros
+\newcommand{\paren}[1]{\ensuremath{\left( {#1} \right)}}
+\newcommand{\bracket}[1]{\ensuremath{\left\{ {#1} \right\}}}
+\renewcommand{\sb}[1]{\ensuremath{\left[ {#1} \right\]}}
+\newcommand{\ab}[1]{\ensuremath{\left\langle {#1} \right\rangle}}
+%probability macros
+\newcommand{\ex}[2]{{\ifx&#1& \mathbb{E} \else \underset{#1}{\mathbb{E}} \fi \
+left[#2\right]}}
+\newcommand{\pr}[2]{{\ifx&#1& \mathbb{P} \else \underset{#1}{\mathbb{P}} \fi \
+left[#2\right]}}
+\newcommand{\var}[2]{{\ifx&#1& \mathrm{Var} \else \underset{#1}{\mathrm{Var}} \fi \
+left[#2\right]}}
+%useful CS macros
+\newcommand{\poly}{\mathrm{poly}}
+\newcommand{\polylog}{\mathrm{polylog}}
+\newcommand{\zo}{\{0,1\}}
+\newcommand{\pmo}{\{\pm1\}}
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\card}[1]{\left| #1 \right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\negl}{\mathrm{negl}}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\eqand}{\qquad \textrm{and} \qquad}
+\newcommand{\ind}[1]{\mathbb{I}\{#1\}}
+\newcommand{\sslash}{\ensuremath{\mathbin{/\mkern-3mu/}}}
+%mathbb
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+%mathcal
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+%theorem macros
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newcommand{\instructor}{Iraklis Tsekourakis}
+\newcommand{\hwnum}{2}
+
+\newcommand{\mymath}[1]{%
+\begin{equation}
+#1
+\end{equation}
+}
+
+%\newcommand{\hwdue}{Wednesday, January 27
+
+\newtheorem{prob}{}
+\newtheorem{sol}{Solution}
+\definecolor{cit}{rgb}{0.05,0.2,0.45}
+\newcommand{\solution}{\medskip\noindent{\color{DarkBlue}\textbf{Solution:}}}
+\begin{document}
+{\Large
+\begin{center}{CS5800: Algorithms} --- \instructor \end{center}}
+{\large
+\vspace{10pt}
+\noindent Homework~\hwnum \vspace{2pt}%\\
+%Due :~\hwdue
+}
+\bigskip
+{\large \noindent Name: \yourname }
+\vspace{15pt}
+
+ % Solutons
+
+% \begin{prob} \textbf{(x points)}
+% \end{prob}
+
+% \solution
+% \begin{enumerate}
+%     \item $n^2 + 7n + 1$ is $\Omega(n^2)$ \\
+%     \solution \\
+
+%     \item \textbf{Some math equation here} \\
+%     \solution \\
+% \end{enumerate}
+
+ 
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+\begin{enumerate}
+    \item $T(n)= T(n/2) + T(n/4) + T(n/8) + n$ \\
+    \solution \\
+
+    Here our guess is T(n) = O(n) \\ 
+    
+    So to prove that that $ T(n) \leq c(n) $ \\
+
+    We can rewrite the equation as,
+
+    \[ T(n)= T(n/2) + T(n/4) + T(n/8) + n\]
+    \[ T(n) \leq c(n/2) + c(n/4) + c(n/8) + n \]
+    \[ T(n) \leq c(n/2 + n/4 +n/8) + n \]
+    \[ T(n) \leq cn(1/2 + 1/4 +1/8) + n \]
+    \[ T(n) \leq cn\frac{4+2+1}{8} + n \]
+    \[ T(n) \leq cn\frac{7}{8} + n \]
+
+    To prove tha above statement, we can also write
+
+    \[ T(n) \leq cn[7/8] + n \leq cn \]
+    \[ cn[7/8] + n \leq cn \]
+    \[ \frac{cn.7 + n(8)}{8} \leq 8cn \]
+    \[ 7cn + 8n \leq 8cn \]
+    \[ 8n \leq cn \]
+
+    Here we can safely assume that $ T(n) \leq 8n$ \\
+
+    We can write this as $c \geq 8$ \\
+
+    So we can adjust our hypothesis by writing c=8
+
+    \[ T(n) \leq \frac{7}{8}cn + n \]
+    \[ T(n) = \frac{7}{8}8n + n \]
+    \[ T(n) = 8n \]
+
+    \item $T(n)= 4T(n/2)+ n^2$ \\
+    \solution \\
+
+    Here we assume our guess to be $T(n) = O(n^2)$
+
+    So we can write the original equation as,
+
+    \[ T(n) \leq r\frac{cn^2}{2} + n^2 \]
+    \[ T(n) \leq cn^2 + n^2 \]
+    \[ T(n) \leq (c+1)n^2 \]
+
+    From the above relation we can understand that it can never be less than $cn^2$. \\
+
+    We improve our guess to $O(n^2logn)$. \\
+
+    So we can rewrite this statement as follows
+
+    \[ T(n) = 4(c\frac{n^2}{4}log\frac{n}{2}) + n^2\]
+    \[ T(n) = 4(cn^2log\frac{n}{2}) + n^2\]
+    \[ T(n) = n^2(clog(\frac{n}{2})+1) \]
+
+    We can rewrite this as,
+
+    \[ n^2(clog(\frac{n}{2})+1) \leq cn^2(logn) \]
+    \[ clogn - clog2 +1 \leq cn^2(logn) \]
+
+    Here we can say that for a value of $ c\geq 0 $, and $ n \geq n_0 $, the $ T(n) \leq cn^2logn$. The $clog^2$ will become
+    obselete as time increases and will therefore satisfy the condition.
+
+\end{enumerate}
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+\solution
+
+The substitution tree for $T(n) = 4T(n/2) + n$ is as follows
+
+\includegraphics[width=1\textwidth]{images/q2.jpg}
+
+At the end of 4 nodes for each level, the node is being split into 4 parts which will continue for $logn^2$ times. \\
+
+We assume that our guess is $O(n^2)$.\\
+
+So we need to prove that $T(n) \leq cn^2$
+
+\[ T(n) \leq 4T(n/2) + n \]
+\[ T(n) \leq 4C(n^2/4) + n \]
+\[ T(n) \leq \frac{4cn^2}{4} + n \]
+\[ T(n) \leq n(c+1) \]
+
+Here, we can see that $T(n) \leq cn^2+n$, here although there is a +n, the $cn^2$ grows exponentially, so its $O(n^2)$.
+
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+\begin{enumerate}
+    \item $T(n) = 2T(n/4) + 1$ \\
+    \solution \\
+
+    Here the equation is in the form $aT(\frac{n}{b} + f(n))$
+    Where a = 2 and b = 4, and f(n) = 1
+
+    We already know that $f(n) = \theta(n^k log^p _n)$ \\
+
+    So here f(n) = 1, so value of k = 0
+
+    So from master theorem we can say that, since $log^a _b > k$ \\
+    The solution would be \\
+    \[ \theta(n^(log^a_b)) \]
+    \[ \theta(n^(log^2_4)) \]
+    \[ \theta(n^\frac{1}{2}) \]
+    \[ \theta(n^{\sqrt{2}}) \]
+
+    \item $T(n) = 2T(n/4) + n$ \\
+    \solution \\
+
+    Here the equation is in the form $aT(\frac{n}{b} + f(n))$
+    Where a = 2 and b = 4, and f(n) = n
+
+    We already know that $f(n) = \theta(n^k log^p _n)$ \\
+
+    So here f(n) = 1, so value of k = 1 \\
+
+    So since $k > -1$, according to master theorem the condition would be determined by
+
+    \[ log^a_b \]
+    \[ log^1_2 = \frac{1}{2} \]
+
+    Since $log^a_b < k$, and p =0 \\
+    So, \\
+
+    \[ \theta(n^k log*p_n) = \theta(n) \]
+
+    Therefore the tight asymptotic bound here is $\theta(n)$
+
+    \item $T(n) = 2T(n/4) + n^2$ \\
+    \solution \\
+
+    Here the equation is in the form $aT(\frac{n}{b} + f(n))$
+    Where a = 2 and b = 4, and f(n) = $n^2$
+
+    We already know that $f(n) = \theta(n^k log^p _n)$ \\
+
+    So here f(n) = $n^2$, so value of k = 2, p =0
+
+    \[ log^a_b \]
+    \[ log^1_2 = \frac{1}{2} \]
+
+    Since $log^a_b < k$, and p =0 \\
+    So according to master theorem \\
+
+    \[ \theta(n^k) \]
+    \[ \theta(n^2) \]
+
+    Therefore the tight asymptotic bound here is $\theta(n^2)$
+
+    \item $T(n) = 2T(n/4) + n^{\frac{1}{2}}$ \\
+    \solution \\
+
+    Here the equation is in the form $aT(\frac{n}{b} + f(n))$
+    Where a = 2 and b = 4, and f(n) = $\frac{1}{2}$
+
+    We already know that $f(n) = \theta(n^k log^p _n)$ \\
+
+    So here f(n) = 1, so value of k = $\frac{1}{2}$, p = 0 \\
+
+    So, since $log^a_b = k$ and $p =0$ \\
+    Hence \\
+
+    \[ \theta(n^k log^(p+1)_n) \]
+    \[ \theta(\sqrt{n}logn) \]
+
+    Therefore the tight asymptotic bound here is $\theta(\sqrt{n}logn)$
+
+
+\end{enumerate}
+
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+\begin{enumerate}
+    \item Max heap smallest element \\
+    \solution \\
+    In a max heap, the smallest element cannot be in a position where it has any children since every parent node must be greater than or equal to every child node, and all elements must be distinct. This is thus because in a max heap, a parent must always be bigger than its offspring by definition. A leaf node must therefore be the smallest element.
+
+    \item Is the array with values $(33, 19, 20, 15, 13, 10, 2, 13, 16, 12)$ a max heap? \\
+    \solution \\
+
+    \includegraphics[width=1\textwidth]{images/q4b.jpeg}
+
+    For the max heap property to be satisfied, for a given array, at any element i, the valye of it should be lesser than that of its parents. \\
+    
+    As we can observe in this heap, the value of the nodes are mostly similar, but however for node 8, which is in 8th position in the heap array, is greater than its parent 15. \\
+
+    So we can say that this array doesnt satisfy max heap property.
+\end{enumerate}
+
+% \begin{prob} \textbf{(20 points)}
+% \end{prob}
+% \solution \\
+
+% MAX-HEAPIFY(A,i) : 
+% \tabto{2cm} l = LEFT(i) // returns the index of the left child \\
+% \tabto{2cm} r = RIGHT(i) // returns the index of the right child \\
+
+% \tabto{2cm} l $\leq$ heap-size(A) and A[l] $>$ A[i] \\
+% \tabto{3cm} largest = l \\
+
+% \tabto{2cm} r $\leq$ heap-size(A) and A[r] $>$ A[i] \\
+% \tabto{3cm} largest = r \\
+
+% \tabto{2cm} if largest!=i \\
+% \tabto{3cm} swap A[i] with A[largest] \\
+% \tabto{3cm} l = largest \\
+% \tabto{2cm} else \\
+% \tabto{3cm} break \\
+
+\begin{prob} \textbf{(20 points)}
+\end{prob}
+\solution \\
+
+\begin{verbatim}
+MAX-HEAPIFY(A,i) : 
+    l = LEFT(i) // returns the index of the left child
+    r = RIGHT(i) // returns the index of the right child
+
+    l $\leq$ heap-size(A) and A[l] $>$ A[i]
+        largest = l
+
+    r $\leq$ heap-size(A) and A[r] $>$ A[i]
+        largest = r
+
+    if largest!=i
+        swap A[i] with A[largest]
+        l = largest
+    else
+        break
+\end{verbatim}
+
+\begin{prob} \textbf{(15 points)}
+
+    \end{prob}
+    
+    \solution
+    
+    We aim to merge k sorted lists using a min heap. The process is as follows:
+    
+    \begin{enumerate}
+        \item Initialize the heap with the first element of each array.
+        \item While the heap is not empty, pop the minimum element from the heap and add it to the final array.
+        \item If the popped element has a successor in its original list, insert the successor into the heap.
+        \item Repeat this process until the heap is empty.
+    \end{enumerate}
+    
+    The pseudo-code for the above logic is given below:
+    
+    \begin{verbatim}
+    len_lists = len(lists)
+    heap = MinHeap()
+    final_array = []
+    
+    # Initialize the heap with the first element of each array
+    for i in range(0, len_lists):
+        if lists[i]:  # Checking if the list is not empty
+            heap.insert((lists[i][0], i, 0))
+    
+    # Extracting the elements in sorted order
+    while not heap.isEmpty():
+        value, index, element_index = heap.popMin()
+        final_array.append(value)
+        if element_index + 1 < len(lists[index]):
+            next_element = lists[index][element_index + 1]
+            heap.insert((next_element, index, element_index + 1))
+    \end{verbatim}
+    
+    This method ensures that we efficiently merge k sorted lists by always choosing the smallest current element available among the lists.
+
+
+\end{document}
